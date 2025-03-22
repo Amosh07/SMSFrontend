@@ -1,6 +1,8 @@
-﻿namespace SMS.Service.Manager
+﻿using Blazored.LocalStorage;
+
+namespace SMS.Service.Manager
 {
-    public class LocalStorageManager(ILocalStorageManager localStorage) : ILocalStorageManager
+    public class LocalStorageManager(ILocalStorageService localStorage) : ILocalStorageManager
     {
         public async Task ClearItemAsync(string key)
         {
