@@ -12,7 +12,7 @@ namespace SMS.Pages
         {
             SetPageTitle();
 
-            await LogoutHandler();
+           // await LogoutHandler();
         }
 
         #region Page Title

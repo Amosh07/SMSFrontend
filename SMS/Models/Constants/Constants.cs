@@ -49,6 +49,26 @@
             public const string ResourceUploadMessage = "Please upload a resource material file with the following extensions (.jpg, .jpeg, .png, .pdf) only.";
         }
 
+        public abstract class UploadType
+        {
+            public const string Post = "Post";
+            public const string Put = "Put";
+            public const string Patch = "Patch";
+        }
+
+        public abstract class UpdateType
+        {
+            public static readonly string Put = "Put";
+            public static readonly string Patch = "Patch";
+        }
+
+        public abstract class DeleteType
+        {
+            public static readonly string Patch = "Patch";
+            public static readonly string Delete = "Delete";
+        }
+
+
 
     }
 }
