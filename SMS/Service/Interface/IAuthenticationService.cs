@@ -17,6 +17,8 @@ namespace SMS.Service.Interface
 
         Task<ResponseDto<UserLoginResponseDto?>?> Login(LoginDto loginDto);
 
+        Task<ResponseDto<RegistrationResponseDto?>?> UserRegister(UserRegisterDto userRegisterDto);
+
         Task LogOut();
     }
 }

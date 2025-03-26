@@ -7,6 +7,7 @@ using SMS.Service.Base;
 using SMS.Service.Interface;
 using SMS.Service.Manager;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace SMS.Service.Implementation
@@ -51,6 +52,33 @@ namespace SMS.Service.Implementation
             {
                 await((IdentityAuthenticationStateManager)authenticationStateProvider).LoggedIn();
             }
+
+            return response;
+        }
+
+        public async Task<ResponseDto<RegistrationResponseDto?>?> UserRegister(UserRegisterDto userRegisterDto)
+        {
+            var formData = new MultipartFormDataContent();
+
+            formData.Add(new StringContent(userRegisterDto.Name ?? ""), "Name");
+            formData.Add(new StringContent(userRegisterDto.Email ?? ""), "Email");
+            formData.Add(new StringContent(userRegisterDto.Password ?? ""), "Password");
+            formData.Add(new StringContent(userRegisterDto.PhoneNumber ?? ""), "PhoneNumber");
+            formData.Add(new StringContent(userRegisterDto.RoleId.ToString()), "RoleId");
+            formData.Add(new StringContent(userRegisterDto.ConfirmPassword ?? ""), "ConfirmPassword");
+            formData.Add(new StringContent(userRegisterDto.Gender.ToString() ?? ""), "Gender");
+            formData.Add(new StringContent(userRegisterDto.Address ?? ""), "Address");
+
+            if (userRegisterDto.ImageUrl != null)
+            {
+                var userImage = new StreamContent(userRegisterDto.ImageUrl!.OpenReadStream(long.MaxValue));
+
+                userImage.Headers.ContentType = new MediaTypeHeaderValue(userRegisterDto.ImageUrl.ContentType);
+
+                formData.Add(userImage, "ImageUrl", userRegisterDto.ImageUrl.Name);
+            }
+
+            var response = await baseService.UploadAsync<RegistrationResponseDto?>(ApiEndpoints.Authentication.UserRegister, Constants.UploadType.Post, formData);
 
             return response;
         }

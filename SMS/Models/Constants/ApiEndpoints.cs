@@ -6,6 +6,7 @@
         {
             public const string Login = "authentication/login";
             public const string Logout = "authentication/logout";
+            public const string UserRegister = "authentication/user-registration";
         }
 
         public abstract class Profile
