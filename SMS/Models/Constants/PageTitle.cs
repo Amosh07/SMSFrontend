@@ -3,5 +3,6 @@
     public abstract class PageTitle
     {
         public const string Login = "Login";
+        public const string Dashboard = "Dashboard";
     }
 }

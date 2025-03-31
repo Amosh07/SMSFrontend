@@ -11,6 +11,12 @@
         public abstract class Profile
         {
             public const string GetUserProfile = "profile";
+            public const string GetUserRole = "profile/role";
+        }
+
+        public abstract class Dashboard
+        {
+            public const string GetAdminDashboardCount = "dashboard/admin/dashboard-count";
         }
     }
 }

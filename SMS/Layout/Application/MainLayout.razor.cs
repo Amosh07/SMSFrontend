@@ -4,7 +4,7 @@ using SMS.Models.Base;
 using SMS.Models.LightTheme;
 using SMS.Models.Preferences;
 
-namespace SMS.Layout
+namespace SMS.Layout.Application
 {
     public partial class MainLayout
     {
@@ -18,7 +18,7 @@ namespace SMS.Layout
 
         private MudTheme Theme { get; } = new LightTheme();
 
-       // private List<RoleMenuResponseDto> AssignedMenus { get; set; } = [];
+        // private List<RoleMenuResponseDto> AssignedMenus { get; set; } = [];
 
         private static bool RightToLeft => false;
 
@@ -36,15 +36,15 @@ namespace SMS.Layout
             {
                 var userResponse = await ProfileService.GetUserProfile();
 
-               // var roleResponse = await MenuService.GetAllAssignedMenus();
+                // var roleResponse = await MenuService.GetAllAssignedMenus();
 
                 if (userResponse?.Result == null) return;
 
-               // if (roleResponse?.Result == null) return;
+                // if (roleResponse?.Result == null) return;
 
                 var userDetails = userResponse.Result;
 
-               // var roleDetails = roleResponse.Result;
+                // var roleDetails = roleResponse.Result;
 
                 GlobalState = new GlobalState()
                 {
@@ -56,7 +56,7 @@ namespace SMS.Layout
                     ImageUrl = userDetails.ImageUrl
                 };
 
-               // AssignedMenus = roleDetails;
+                // AssignedMenus = roleDetails;
             }
             else
             {

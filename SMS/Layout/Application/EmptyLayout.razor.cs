@@ -1,7 +1,7 @@
 using MudBlazor;
 using SMS.Models.LightTheme;
 
-namespace SMS.Layout
+namespace SMS.Layout.Application
 {
     public partial class EmptyLayout
     {

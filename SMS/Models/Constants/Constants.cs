@@ -2,6 +2,13 @@
 {
     public abstract class Constants
     {
+        public abstract class Roles
+        {
+            public const string SuperAdmin = "Super Admin";
+            public const string Teacher = "Teacher";
+            public const string User = "User";
+            public const string Student = "Student";
+        }
         public abstract class FontFamily
         {
             public const string Satoshi = "Satoshi";
@@ -68,7 +75,18 @@
             public static readonly string Delete = "Delete";
         }
 
+        public abstract class TimePeriod
+        {
+            public const int All = 0;
+            public const int Weekly = 1;
+            public const int Monthly = 2;
+            public const int Yearly = 3;
 
+            public const string AllAction = "All";
+            public const string WeeklyAction = "Weekly";
+            public const string MonthlyAction = "Monthly";
+            public const string YearlyAction = "Yearly";
+        }
 
     }
 }
