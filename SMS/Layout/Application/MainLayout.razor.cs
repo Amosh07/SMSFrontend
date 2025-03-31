@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SMS.Models.Base;
 using SMS.Models.LightTheme;
@@ -93,6 +92,5 @@ namespace SMS.Layout.Application
         {
             DrawerOpen = !DrawerOpen;
         }
-
     }
 }

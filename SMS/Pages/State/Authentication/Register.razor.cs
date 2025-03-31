@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SMS.Layout;
+using SMS.Layout.Application;
 using SMS.Models.Constants;
 using SMS.Models.Requests.Identity;
 
-namespace SMS.Pages
+namespace SMS.Pages.State.Authentication
 {
     public partial class Register : ComponentBase
     {
