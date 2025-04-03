@@ -12,7 +12,7 @@ namespace SMS.Pages.State.Authentication
         {
             SetPageTitle();
 
-           // await LogoutHandler();
+           await LogoutHandler();
         }
 
         #region Page Title

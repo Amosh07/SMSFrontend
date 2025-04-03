@@ -2,20 +2,20 @@
 
 @if (Group != null)
 {
-    <MudNavMenu Class="nav-menu" Title="@Group.Title" Expanded="false">
+    <MudNavGroup Class="nav-menu" Title="@Group.Title" Expanded="false">
         @if (Group.SubMenus is not null)
         {
             foreach (var item in Group.SubMenus)
             {
                 if (item.SubMenus != null && item.SubMenus.Any())
                 {
-                    <NavMenuGroup Group="item" />
+                    <NavMenuGroup Group="item"/>
                 }
                 else
                 {
-                    <NavMenuItem Item="item" />
+                    <NavMenuItem Item="item"/>
                 }
             }
         }
-    </MudNavMenu>
+    </MudNavGroup>
 }

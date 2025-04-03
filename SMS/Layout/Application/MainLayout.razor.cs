@@ -2,6 +2,7 @@ using MudBlazor;
 using SMS.Models.Base;
 using SMS.Models.LightTheme;
 using SMS.Models.Preferences;
+using SMS.Models.Responses.Menu;
 
 namespace SMS.Layout.Application
 {
@@ -17,7 +18,7 @@ namespace SMS.Layout.Application
 
         private MudTheme Theme { get; } = new LightTheme();
 
-        // private List<RoleMenuResponseDto> AssignedMenus { get; set; } = [];
+        private List<RoleMenuResponseDto> AssignedMenus { get; set; } = [];
 
         private static bool RightToLeft => false;
 
@@ -35,15 +36,15 @@ namespace SMS.Layout.Application
             {
                 var userResponse = await ProfileService.GetUserProfile();
 
-                // var roleResponse = await MenuService.GetAllAssignedMenus();
+                var roleResponse = await MenuService.GetAllAssignedMenus();
 
                 if (userResponse?.Result == null) return;
 
-                // if (roleResponse?.Result == null) return;
+                if (roleResponse?.Result == null) return;
 
                 var userDetails = userResponse.Result;
 
-                // var roleDetails = roleResponse.Result;
+                 var roleDetails = roleResponse.Result;
 
                 GlobalState = new GlobalState()
                 {
@@ -55,7 +56,7 @@ namespace SMS.Layout.Application
                     ImageUrl = userDetails.ImageUrl
                 };
 
-                // AssignedMenus = roleDetails;
+                AssignedMenus = roleDetails;
             }
             else
             {

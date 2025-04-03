@@ -1,0 +1,44 @@
+﻿@using SMS.Models.Constants
+<MudDrawer Anchor="Anchor.Right" @bind-Open="ThemeDrawerOpen" Elevation="25" Variant="@DrawerVariant.Temporary" Width="350px" Height="100vh">
+    <MudDrawerHeader Class="align-center">
+        <MudText Typo="Typo.h6">
+            Theme Manager
+        </MudText>
+        <MudSpacer />
+        <MudIconButton Color="Color.Default" Icon="@Icons.Material.Filled.Close" OnClick="@(() => ThemeDrawerOpenChanged.InvokeAsync(false))" Size="Size.Small" />
+    </MudDrawerHeader>
+    <div class="px-5">
+        <div class="mb-2">
+            <MudExpansionPanels>
+                <MudExpansionPanel Text="Font">
+                    <div class="d-flex flex-column align-items-start">
+                        <MudRadioGroup @bind-Value="ThemePreference.Font">
+                            <MudRadio Value="@Constants.FontFamily.Satoshi" Color="Color.Primary" Class="custom-width">
+                                <MudText Typo="Typo.body2" Class="hfs6 title fw-normal">@Constants.FontFamily.Satoshi</MudText>
+                            </MudRadio>
+                            <MudRadio Value="@Constants.FontFamily.Poppins" Color="Color.Primary" Class="custom-width">
+                                <MudText Typo="Typo.body2" Class="hfs6 title fw-normal">@Constants.FontFamily.Poppins</MudText>
+                            </MudRadio>
+                            <MudRadio Value="@Constants.FontFamily.Roboto" Color="Color.Primary" Class="custom-width">
+                                <MudText Typo="Typo.body2" Class="hfs6 title fw-normal">@Constants.FontFamily.Roboto</MudText>
+                            </MudRadio>
+                            <MudRadio Value="@Constants.FontFamily.Lato" Color="Color.Primary" Class="custom-width">
+                                <MudText Typo="Typo.body2" Class="hfs6 title fw-normal">@Constants.FontFamily.Lato</MudText>
+                            </MudRadio>
+                            <MudRadio Value="@Constants.FontFamily.Inter" Color="Color.Primary" Class="custom-width">
+                                <MudText Typo="Typo.body2" Class="hfs6 title fw-normal">@Constants.FontFamily.Inter</MudText>
+                            </MudRadio>
+                        </MudRadioGroup>
+                    </div>
+                </MudExpansionPanel>
+            </MudExpansionPanels>
+        </div>
+        <div class="text-end">
+            <MudButton DropShadow="false" Color="Color.Primary" Variant="Variant.Filled" Class="btn btn--sm" OnClick="UpdateFontFamily">
+                Save
+            </MudButton>
+        </div>
+    </div>
+</MudDrawer>
+
+<MudOverlay DarkBackground="false" OnClick="@(() => ThemeDrawerOpenChanged.InvokeAsync(false))" Visible="ThemeDrawerOpen" VisibleChanged="ThemeDrawerOpenChanged" />

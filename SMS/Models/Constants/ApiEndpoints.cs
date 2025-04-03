@@ -19,5 +19,12 @@
         {
             public const string GetAdminDashboardCount = "dashboard/admin/dashboard-count";
         }
+
+        public abstract class RoleRights
+        {
+            public const string GetAllRoleMenus = "role-rights";
+            public const string AssignRoleMenus = "role-rights";
+            public const string GetAllAssignedMenus = "role-rights";
+        }
     }
 }
