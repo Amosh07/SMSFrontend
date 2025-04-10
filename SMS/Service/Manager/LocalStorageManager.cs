@@ -6,7 +6,7 @@ namespace SMS.Service.Manager
     {
         public async Task ClearItemAsync(string key)
         {
-           // await localStorage.RemoveItemAsync(key);
+            await localStorage.RemoveItemAsync(key);
         }
 
         public async Task<T?> GetItemAsync<T>(string key)

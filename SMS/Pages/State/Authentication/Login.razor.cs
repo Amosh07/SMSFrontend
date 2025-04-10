@@ -98,6 +98,8 @@ namespace SMS.Pages.State.Authentication
         private async Task LogoutHandler()
         {
             await AuthenticationService.LogOut();
+
+
         }
         #endregion
     }

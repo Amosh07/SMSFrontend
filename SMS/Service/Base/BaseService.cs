@@ -360,14 +360,14 @@ namespace SMS.Service.Base
 
         private async Task SetAuthorizationHeader()
         {
-            var token = await localStorageService.GetItemAsync<string>(Constants.LocalStorage.Token);
+                var token = await localStorageService.GetItemAsync<string>(Constants.LocalStorage.Token);
 
             if (token != null)
-            {
-                var accessToken = StringCipher.Decrypt(token, Constants.Encryption.Key);
+                {
+                    var accessToken = StringCipher.Decrypt(token, Constants.Encryption.Key);
 
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-            }
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                }
         }
 
         private void SetNgrokAccessibility()
