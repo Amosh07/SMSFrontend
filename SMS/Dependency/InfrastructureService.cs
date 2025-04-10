@@ -33,10 +33,6 @@ namespace SMS.Dependency
             var applicationConfiguration = configuration.GetSection("Configuration").Get<Configuration>()
                 ?? throw new KeyNotFoundException("The application configuration could not be found, please try again.");
 
-           /* var syncfusionConfiguration = configuration.GetSection("SyncfusionSettings").Get<SyncfusionSettings>()
-                                          ?? throw new KeyNotFoundException("The syncfusion configuration could not be found, please try again.");*/
-
-           // Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionConfiguration.LicenseKey);
 
             services.AddDependencyServices();
 
