@@ -12,6 +12,7 @@ namespace SMS.Pages.Administrator.Dashboard
         protected override async Task OnInitializedAsync()
         {
             SetPageTitle();
+            await GetAllClassDetails();
         }
 
         #region Page Title
@@ -68,9 +69,33 @@ namespace SMS.Pages.Administrator.Dashboard
         }
         #endregion
 
+        private bool IsCreateModalOpen { get; set; }
+
+        private async Task OpenRegisterClassModal()
+        {
+            
+            IsCreateModalOpen = true;
+
+            StateHasChanged();
+        }
+        private async Task OnUserFilter()
+        {
+            await GetAllClassDetails();
+        }
+
+        private bool? IsActive { get; set; } = Constants.ActivationStatus.Active;
+
+        private async Task OnStatusFilter(bool? isActive)
+        {
+            IsActive = isActive;
+
+            await GetAllClassDetails();
+        }
+
         #region  GetAll Class Details 
 
         private List<GetClassDetailDto> GetClassDetails { get; set; } = new();
+
         private async Task GetAllClassDetails()
         {
             var response = await ClassService.GetAllClassDetails();

@@ -1,4 +1,6 @@
 ﻿@page "/addClass"
+@using SMS.Layout.Dialog
+@using SMS.Models.Requests.Class
 
 <PageTitle>@Layout.PageTitle</PageTitle>
 
@@ -18,7 +20,7 @@ else
                 </Filter>
             </div>
             <div class="filter-right">
-                <MudButton Color="Color.Primary" Variant="Variant.Filled" DropShadow="false" Class="btn btn--md" OnClick="OpenRegisterUsersModal" StartIcon="@Icons.Material.Filled.Add" Disabled="IsCreateModalOpen">Register User</MudButton>
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" DropShadow="false" Class="btn btn--md" OnClick="OpenRegisterClassModal" StartIcon="@Icons.Material.Filled.Add" Disabled="IsCreateModalOpen">Register User</MudButton>
             </div>
         </div>
         <div class="table-responsive">
@@ -52,24 +54,25 @@ else
         </div>
     </div>
 
-   
+    if (IsCreateModalOpen)
+    {
+        <ModalLayout T="@InsertClassDto"
+                     Module="AddClass"
+                     Title="Create Class"
+                     Description="Register a Class to the system, by filling up the following form below."
+                     SubmitColor="Color.Primary"
+                     Size="modal-lg"
+                     OnSave="@InsertClass"
+                     CancelLabel="Discard"
+                     SubmitLabel="Create">
+            <div class="d-flex flex-column gap-4">
+                <div class="row gap-y-5">
+                    <div class="col-xl-6 col-md-6 col-12">
+                        <MudTextField Label="Full Name" @bind-Value="InsertClassDto.ClassName" Required="true" Variant="Variant.Outlined" Immediate="true" />
+                    </div>
+                </div>
+            </div>
+        </ModalLayout>
+    }
 }
 
-@* <MudPaper Class="p-6 mx-auto mt-4" MaxWidth="600px" Elevation="4">
-    <MudText Typo="Typo.h5" Class="mb-4">Add New Class</MudText>
-
-    <MudForm Validated="OnValidated">
-        <MudTextField T="string" Label="Class Name" Required="true" For="@(() => InsertClassDto.ClassName)" @bind-Value="InsertClassDto.ClassName" />
-        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertClass" Disabled="@BusySubmitting" Class="mt-4">
-            @if (BusySubmitting)
-            {
-                <MudProgressCircular  Indeterminate="true" Color="Color.Inherit" />
-                <span class="ml-2">Submitting...</span>
-            }
-            else
-            {
-                <span>Add Class</span>
-            }
-        </MudButton>
-    </MudForm>
-</MudPaper> *@
