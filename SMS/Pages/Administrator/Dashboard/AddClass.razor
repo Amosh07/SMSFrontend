@@ -1,0 +1,75 @@
+﻿@page "/addClass"
+
+<PageTitle>@Layout.PageTitle</PageTitle>
+
+@if (GetClassDetails == null)
+{
+    <Loader />
+}
+else
+{
+    <Back/>
+    <div class="inner-padding">
+        <div class="filter d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
+            <div class="filter-left d-flex align-items-center gap-x-2">
+                <MudTextField @bind-Value="Search" Immediate="true" Placeholder="Search" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Class="search-input text-dark" />
+                <ActivationFilter Value="IsActive" ValueChanged="OnStatusFilter" />
+                <Filter OnFilterApplication="OnUserFilter">
+                </Filter>
+            </div>
+            <div class="filter-right">
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" DropShadow="false" Class="btn btn--md" OnClick="OpenRegisterUsersModal" StartIcon="@Icons.Material.Filled.Add" Disabled="IsCreateModalOpen">Register User</MudButton>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table user-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Class Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var u in GetClassDetails)
+                    {
+                        <tr>
+                            <td>@(GetClassDetails.IndexOf(u) + 1).</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <MudTooltip Text="@(u.ClassName)" Color="Color.Primary" Arrow="true">
+                                    </MudTooltip>
+                                </div>
+                            </td>
+
+                            <td>
+                                <ActivationStatus IsActive="u.IsActive" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+   
+}
+
+@* <MudPaper Class="p-6 mx-auto mt-4" MaxWidth="600px" Elevation="4">
+    <MudText Typo="Typo.h5" Class="mb-4">Add New Class</MudText>
+
+    <MudForm Validated="OnValidated">
+        <MudTextField T="string" Label="Class Name" Required="true" For="@(() => InsertClassDto.ClassName)" @bind-Value="InsertClassDto.ClassName" />
+        <MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="InsertClass" Disabled="@BusySubmitting" Class="mt-4">
+            @if (BusySubmitting)
+            {
+                <MudProgressCircular  Indeterminate="true" Color="Color.Inherit" />
+                <span class="ml-2">Submitting...</span>
+            }
+            else
+            {
+                <span>Add Class</span>
+            }
+        </MudButton>
+    </MudForm>
+</MudPaper> *@

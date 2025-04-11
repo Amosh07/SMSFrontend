@@ -1,4 +1,6 @@
-﻿namespace SMS.Models.Constants
+﻿using MudBlazor;
+
+namespace SMS.Models.Constants
 {
     public abstract class ApiEndpoints
     {
@@ -25,6 +27,12 @@
             public const string GetAllRoleMenus = "role-rights";
             public const string AssignRoleMenus = "role-rights";
             public const string GetAllAssignedMenus = "role-rights";
+        }
+
+        public abstract class Class
+        {
+            public const string AddClass = "InsertClass";
+            public const string GetAllClassDetails = "GetAll";
         }
     }
 }
