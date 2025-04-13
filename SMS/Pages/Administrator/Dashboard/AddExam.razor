@@ -1,0 +1,88 @@
+﻿@page "/addExam"
+@using SMS.Layout.Dialog
+@using SMS.Models.Requests.Exam
+
+<PageTitle>@Layout.PageTitle</PageTitle>
+
+@if (GetExamDetails == null)
+{
+    <Loader />
+}
+else
+{
+    <Back />
+    <div class="inner-padding">
+        <div class="filter d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
+            <div class="filter-left d-flex align-items-center gap-x-2">
+                <MudTextField @bind-Value="Search" Immediate="true" Placeholder="Search" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Class="search-input text-dark" />
+                <ActivationFilter Value="IsActive" ValueChanged="OnStatusFilter" />
+                <Filter OnFilterApplication="OnUserFilter">
+                </Filter>
+            </div>
+            <div class="filter-right">
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" DropShadow="false" Class="btn btn--md" OnClick="OpenRegisterExamModal" StartIcon="@Icons.Material.Filled.Add" Disabled="IsCreateModalOpen">Register Exam</MudButton>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table user-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Subject</th>
+                        <th>Class</th>
+                        <th>Student</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var e in GetExamDetails)
+                    {
+                        <tr>
+                            <td>@(GetExamDetails.IndexOf(e) + 1).</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <MudTooltip Text="@(e.SubjectName)" Color="Color.Primary" Arrow="true" />
+                                </div>
+                            </td>
+                            <td>@e.Classes</td>
+                            <td>@e.StudentName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    if (IsCreateModalOpen)
+    {
+        <ModalLayout T="@InsertExamDto"
+                     Module="AddExam"
+                     Title="Create Exam"
+                     Description="Register an Exam by filling up the form below."
+                     SubmitColor="Color.Primary"
+                     Size="modal-lg"
+                     OnSave="@InsertExam"
+                     CancelLabel="Discard"
+                     SubmitLabel="Create">
+            <div class="d-flex flex-column gap-4">
+                <div class="row gap-y-5">
+                    <div class="col-xl-6 col-md-6 col-12">
+                        @* <MudSelect T="Guid" Label="Select Subject" @bind-Value="InsertExamDto.SubjectId" Required="true">
+                            @foreach (var subject in AllSubjects)
+                            {
+                                <MudSelectItem Value="subject.Id">@subject.Name</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </div>
+                    <div class="col-xl-6 col-md-6 col-12">
+                        <MudSelect T="Guid" Label="Select Class" @bind-Value="InsertExamDto.ClassId" Required="true">
+                            @foreach (var cls in AllClasses)
+                            {
+                                <MudSelectItem Value="cls.Id">@cls.ClassName</MudSelectItem>
+                            }
+                        </MudSelect> *@
+                    </div>
+                </div>
+            </div>
+        </ModalLayout>
+    }
+}

@@ -1,0 +1,81 @@
+﻿@page "/addSubject"
+@using SMS.Layout.Dialog
+@using SMS.Models.Requests.Subject
+
+<PageTitle>@Layout.PageTitle</PageTitle>
+
+@if (GetSubjectDetails == null)
+{
+    <Loader />
+}
+else
+{
+    <Back />
+    <div class="inner-padding">
+        <div class="filter d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
+            <div class="filter-left d-flex align-items-center gap-x-2">
+                <MudTextField @bind-Value="Search" Immediate="true" Placeholder="Search" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" Class="search-input text-dark" />
+                <ActivationFilter Value="IsActive" ValueChanged="OnStatusFilter" />
+                <Filter OnFilterApplication="OnUserFilter">
+                </Filter>
+            </div>
+            <div class="filter-right">
+                <MudButton Color="Color.Primary" Variant="Variant.Filled" DropShadow="false" Class="btn btn--md" OnClick="OpenRegisterSubjectModal" StartIcon="@Icons.Material.Filled.Add" Disabled="IsCreateModalOpen">Register Subject</MudButton>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table user-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Subject Name</th>
+                        <th>Class</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var s in GetSubjectDetails)
+                    {
+                        <tr>
+                            <td>@(GetSubjectDetails.IndexOf(s) + 1).</td>
+                            <td>
+                                <MudTooltip Text="@(s.SubjectName)" Color="Color.Primary" Arrow="true" />
+                            </td>
+                            <td>@s.SubjectName</td
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (IsCreateModalOpen)
+    {
+        <ModalLayout T="@InsertSubjectDto"
+                     Module="AddSubject"
+                     Title="Create Subject"
+                     Description="Register a Subject by filling up the form below."
+                     SubmitColor="Color.Primary"
+                     Size="modal-lg"
+                     OnSave="@InsertSubject"
+                     CancelLabel="Discard"
+                     SubmitLabel="Create">
+            <div class="d-flex flex-column gap-4">
+                <div class="row gap-y-5">
+                    <div class="col-xl-6 col-md-6 col-12">
+                        <MudTextField Label="Subject Name" @bind-Value="InsertSubjectDto.SubjectName" Required="true" Variant="Variant.Outlined" Immediate="true" />
+                    </div>
+                    <div class="col-xl-6 col-md-6 col-12">
+                        <MudSelect T="Guid" Label="Select Subject" @bind-Value="InsertSubjectDto.ClassId" Required="true">
+                            @foreach (var c in AllSubject)
+                            {
+                                <MudSelectItem Value="c.Id">@c.SubjectName</MudSelectItem>
+                            }
+                        </MudSelect>
+                    </div>
+                </div>
+            </div>
+        </ModalLayout>
+    }
+}

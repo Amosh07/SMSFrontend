@@ -1,7 +1,5 @@
 ﻿using SMS.Models.Base;
 using SMS.Models.Constants;
-using SMS.Models.Requests.Class;
-using SMS.Models.Requests.Identity;
 using SMS.Models.Responses.Class;
 using SMS.Service.Base;
 using SMS.Service.Interface;
@@ -11,9 +9,9 @@ namespace SMS.Service.Implementation
 {
     public class ClassService(IBaseService baseService) : IClassService
     {
-        public async Task<ResponseDto<bool?>?> AddClass(InsertClassDto InsertClass)
+        public async Task<ResponseDto<bool?>?> AddClass(Models.Requests.Class.InsertClassDto insertClass)
         {
-            var jsonRequest = JsonSerializer.Serialize(InsertClass);
+            var jsonRequest = JsonSerializer.Serialize(insertClass);
 
             var content = new StringContent(jsonRequest, System.Text.Encoding.UTF8, "application/json");
 

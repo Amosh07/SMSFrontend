@@ -2,41 +2,36 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SMS.Layout.Application;
 using SMS.Models.Constants;
-using SMS.Models.Requests.Class;
-using SMS.Models.Responses.Class;
+using SMS.Models.Requests.Exam;
+using SMS.Models.Responses.Exam;
 
 namespace SMS.Pages.Administrator.Dashboard
 {
-    public partial class AddClass : ComponentBase
+    public partial class AddExam : ComponentBase
     {
         protected override async Task OnInitializedAsync()
         {
             SetPageTitle();
-            await GetAllClassDetails();
+            await GetAllExamDetails();
         }
 
-        #region Page Title
         [CascadingParameter] public MainLayout Layout { get; set; } = new();
 
         private void SetPageTitle()
         {
             Layout.PageTitle = PageTitle.Dashboard;
         }
-        #endregion
 
-        #region Add Class 
-
-        private InsertClassDto InsertClassDto { get; set; } = new();
-
+        private InsertExamDto InsertExamDto { get; set; } = new();
         private bool BusySubmitting { get; set; }
 
-        private async Task InsertClass()
+        private async Task InsertExam()
         {
             BusySubmitting = true;
 
             try
             {
-                var result = await ClassService.AddClass(InsertClassDto);
+                var result = await ExamService.AddExam(InsertExamDto);
 
                 if (result?.Result is null)
                 {
@@ -66,22 +61,19 @@ namespace SMS.Pages.Administrator.Dashboard
             }
 
             BusySubmitting = false;
-
         }
-        #endregion
 
         private bool IsCreateModalOpen { get; set; }
 
-        private async Task OpenRegisterClassModal()
+        private async Task OpenRegisterExamModal()
         {
-            
             IsCreateModalOpen = true;
-
             StateHasChanged();
         }
+
         private async Task OnUserFilter()
         {
-            await GetAllClassDetails();
+            await GetAllExamDetails();
         }
 
         private bool? IsActive { get; set; } = Constants.ActivationStatus.Active;
@@ -89,31 +81,24 @@ namespace SMS.Pages.Administrator.Dashboard
         private async Task OnStatusFilter(bool? isActive)
         {
             IsActive = isActive;
-
-            await GetAllClassDetails();
+            await GetAllExamDetails();
         }
 
-        #region  GetAll Class Details 
+        private List<GetExamDetailDto> GetExamDetails { get; set; } = new();
 
-        private List<GetClassDetailDto> GetClassDetails { get; set; } = new();
-
-        private async Task GetAllClassDetails()
+        private async Task GetAllExamDetails()
         {
-            var response = await ClassService.GetAllClassDetails();
+            var response = await ExamService.GetAllExamDetails();
 
             if (response?.Result is null)
             {
                 SnackbarService.ShowSnackbar(response?.Message ?? Constants.Message.ExceptionMessage, Severity.Error, Variant.Outlined);
-
                 return;
             }
 
-            GetClassDetails = response.Result;
-
+            GetExamDetails = response.Result;
         }
-        #endregion
 
-        #region Search and Filter
         private string _search = string.Empty;
 
         private string Search
@@ -130,13 +115,8 @@ namespace SMS.Pages.Administrator.Dashboard
         private async Task OnSearchInputAsync(string search)
         {
             Search = search;
-
-            await GetAllClassDetails();
-
+            await GetAllExamDetails();
             StateHasChanged();
         }
-
-        #endregion
-
     }
 }

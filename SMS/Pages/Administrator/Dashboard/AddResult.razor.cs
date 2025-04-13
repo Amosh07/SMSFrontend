@@ -2,41 +2,36 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SMS.Layout.Application;
 using SMS.Models.Constants;
-using SMS.Models.Requests.Class;
-using SMS.Models.Responses.Class;
+using SMS.Models.Requests.Result;
+using SMS.Models.Responses.Result;
 
 namespace SMS.Pages.Administrator.Dashboard
 {
-    public partial class AddClass : ComponentBase
+    public partial class AddResult : ComponentBase
     {
         protected override async Task OnInitializedAsync()
         {
             SetPageTitle();
-            await GetAllClassDetails();
+            await GetAllResultDetails();
         }
 
-        #region Page Title
         [CascadingParameter] public MainLayout Layout { get; set; } = new();
 
         private void SetPageTitle()
         {
             Layout.PageTitle = PageTitle.Dashboard;
         }
-        #endregion
 
-        #region Add Class 
-
-        private InsertClassDto InsertClassDto { get; set; } = new();
-
+        private InsertResultDto InsertResultDto { get; set; } = new();
         private bool BusySubmitting { get; set; }
 
-        private async Task InsertClass()
+        private async Task InsertResult()
         {
             BusySubmitting = true;
 
             try
             {
-                var result = await ClassService.AddClass(InsertClassDto);
+                var result = await ResultService.AddResult(InsertResultDto);
 
                 if (result?.Result is null)
                 {
@@ -66,22 +61,19 @@ namespace SMS.Pages.Administrator.Dashboard
             }
 
             BusySubmitting = false;
-
         }
-        #endregion
 
         private bool IsCreateModalOpen { get; set; }
 
-        private async Task OpenRegisterClassModal()
+        private async Task OpenRegisterResultModal()
         {
-            
             IsCreateModalOpen = true;
-
             StateHasChanged();
         }
+
         private async Task OnUserFilter()
         {
-            await GetAllClassDetails();
+            await GetAllResultDetails();
         }
 
         private bool? IsActive { get; set; } = Constants.ActivationStatus.Active;
@@ -89,31 +81,24 @@ namespace SMS.Pages.Administrator.Dashboard
         private async Task OnStatusFilter(bool? isActive)
         {
             IsActive = isActive;
-
-            await GetAllClassDetails();
+            await GetAllResultDetails();
         }
 
-        #region  GetAll Class Details 
+        private List<GetResultDetailDto> GetResultDetails { get; set; } = new();
 
-        private List<GetClassDetailDto> GetClassDetails { get; set; } = new();
-
-        private async Task GetAllClassDetails()
+        private async Task GetAllResultDetails()
         {
-            var response = await ClassService.GetAllClassDetails();
+            var response = await ResultService.GetAllResultDetails();
 
             if (response?.Result is null)
             {
                 SnackbarService.ShowSnackbar(response?.Message ?? Constants.Message.ExceptionMessage, Severity.Error, Variant.Outlined);
-
                 return;
             }
 
-            GetClassDetails = response.Result;
-
+            GetResultDetails = response.Result;
         }
-        #endregion
 
-        #region Search and Filter
         private string _search = string.Empty;
 
         private string Search
@@ -130,13 +115,8 @@ namespace SMS.Pages.Administrator.Dashboard
         private async Task OnSearchInputAsync(string search)
         {
             Search = search;
-
-            await GetAllClassDetails();
-
+            await GetAllResultDetails();
             StateHasChanged();
         }
-
-        #endregion
-
     }
 }

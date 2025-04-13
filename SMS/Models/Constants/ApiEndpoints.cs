@@ -34,5 +34,28 @@ namespace SMS.Models.Constants
             public const string AddClass = "InsertClass";
             public const string GetAllClassDetails = "GetAll";
         }
+        public abstract class Subject
+        {
+            public const string AddSubject = "InsertSubject";
+            public const string GetAllSubjectDetails = "GetAll";
+        }
+
+        public abstract class Exam
+        {
+            public const string AddExam = "InsertExam";
+            public const string GetAllExamDetails = "GetAll";
+        }
+
+        public abstract class Result
+        {
+            public const string AddResult = "InsertResult";
+            public const string GetAllResultDetails = "GetAll";
+        }
+
+        public abstract class Attendance
+        {
+            public const string AddAttendance = "InsertAttendance";
+            public const string GetAllAttendanceDetails = "GetAll";
+        }
     }
 }

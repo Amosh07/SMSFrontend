@@ -2,17 +2,17 @@ using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SMS.Layout.Application;
 using SMS.Models.Constants;
-using SMS.Models.Requests.Class;
-using SMS.Models.Responses.Class;
+using SMS.Models.Requests.Subject;
+using SMS.Models.Responses.Subject;
 
 namespace SMS.Pages.Administrator.Dashboard
 {
-    public partial class AddClass : ComponentBase
+    public partial class AddSubject : ComponentBase
     {
         protected override async Task OnInitializedAsync()
         {
             SetPageTitle();
-            await GetAllClassDetails();
+            await GetAllSubjectDetails();
         }
 
         #region Page Title
@@ -24,19 +24,19 @@ namespace SMS.Pages.Administrator.Dashboard
         }
         #endregion
 
-        #region Add Class 
+        #region Add Subject
 
-        private InsertClassDto InsertClassDto { get; set; } = new();
+        private InsertSubjectDto InsertSubjectDto { get; set; } = new();
 
         private bool BusySubmitting { get; set; }
 
-        private async Task InsertClass()
+        private async Task InsertSubject()
         {
             BusySubmitting = true;
 
             try
             {
-                var result = await ClassService.AddClass(InsertClassDto);
+                var result = await SubjectService.AddSubject(InsertSubjectDto);
 
                 if (result?.Result is null)
                 {
@@ -50,15 +50,19 @@ namespace SMS.Pages.Administrator.Dashboard
                     case StatusCode.Status200Ok:
                         SnackbarService.ShowSnackbar(result.Message, Severity.Success, Variant.Outlined);
                         break;
-                    case StatusCode.Status404NotFound:
                     case StatusCode.Status400BadRequest:
                     case StatusCode.Status401Unauthorized:
+                    case StatusCode.Status404NotFound:
                         SnackbarService.ShowSnackbar(result.Message, Severity.Warning, Variant.Outlined);
                         break;
                     case StatusCode.Status500InternalServerError:
                         SnackbarService.ShowSnackbar(result.Message, Severity.Error, Variant.Outlined);
                         break;
                 }
+
+                await GetAllSubjectDetails();
+                IsCreateModalOpen = false; 
+                InsertSubjectDto = new(); 
             }
             catch (Exception ex)
             {
@@ -66,22 +70,21 @@ namespace SMS.Pages.Administrator.Dashboard
             }
 
             BusySubmitting = false;
-
         }
+
         #endregion
 
         private bool IsCreateModalOpen { get; set; }
 
-        private async Task OpenRegisterClassModal()
+        private async Task OpenRegisterSubjectModal()
         {
-            
             IsCreateModalOpen = true;
-
             StateHasChanged();
         }
+
         private async Task OnUserFilter()
         {
-            await GetAllClassDetails();
+            await GetAllSubjectDetails();
         }
 
         private bool? IsActive { get; set; } = Constants.ActivationStatus.Active;
@@ -89,31 +92,49 @@ namespace SMS.Pages.Administrator.Dashboard
         private async Task OnStatusFilter(bool? isActive)
         {
             IsActive = isActive;
-
-            await GetAllClassDetails();
+            await GetAllSubjectDetails();
         }
 
-        #region  GetAll Class Details 
+        #region GetAll Subject Details
 
-        private List<GetClassDetailDto> GetClassDetails { get; set; } = new();
+        private List<GetSubjectDetailDto> GetSubjectDetails { get; set; } = new();
 
-        private async Task GetAllClassDetails()
+        private async Task GetAllSubjectDetails()
         {
-            var response = await ClassService.GetAllClassDetails();
+            var response = await SubjectService.GetAllSubjectDetails();
 
             if (response?.Result is null)
             {
                 SnackbarService.ShowSnackbar(response?.Message ?? Constants.Message.ExceptionMessage, Severity.Error, Variant.Outlined);
-
                 return;
             }
 
-            GetClassDetails = response.Result;
-
+            GetSubjectDetails = response.Result;
         }
+
+        #endregion
+
+        #region Get All Subject
+
+        private List<GetSubjectDetailDto> AllSubject { get; set; } = new();
+
+        private async Task GetAllSubject()
+        {
+            var response = await SubjectService.GetAllSubjectDetails();
+
+            if (response?.Result is null)
+            {
+                SnackbarService.ShowSnackbar(response?.Message ?? Constants.Message.ExceptionMessage, Severity.Error, Variant.Outlined);
+                return;
+            }
+
+            AllSubject = response.Result;
+        }
+
         #endregion
 
         #region Search and Filter
+
         private string _search = string.Empty;
 
         private string Search
@@ -130,13 +151,10 @@ namespace SMS.Pages.Administrator.Dashboard
         private async Task OnSearchInputAsync(string search)
         {
             Search = search;
-
-            await GetAllClassDetails();
-
+            await GetAllSubjectDetails();
             StateHasChanged();
         }
 
         #endregion
-
     }
 }
