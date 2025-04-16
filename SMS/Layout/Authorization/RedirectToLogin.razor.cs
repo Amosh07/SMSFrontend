@@ -4,7 +4,9 @@ namespace SMS.Layout.Authorization
     {
         protected override void OnInitialized()
         {
-            NavigationManager.NavigateTo("login");
+
+          NavigationManager.NavigateTo("/login");
+            
         }
 
     }

@@ -69,8 +69,6 @@ namespace SMS.Dependency
                 .AddBootstrap5Providers()
                 .AddFontAwesomeIcons();
 
-           // services.AddSyncfusionBlazor();
-
             services.AddBlazoredLocalStorage();
 
             services.AddAuthorizationCore();

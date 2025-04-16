@@ -4,62 +4,48 @@ using SMS.Layout.Application;
 using SMS.Models.Constants;
 using SMS.Models.Requests.Identity;
 
-namespace SMS.Pages.State.Authentication
+namespace SMS.Pages.State
 {
-    public partial class Login : ComponentBase
+    public partial class Register : ComponentBase
     {
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             SetPageTitle();
-
-           await LogoutHandler();
         }
 
         #region Page Title
-        [CascadingParameter] public MainLayout Layout { get; set; } = new();
+        [CascadingParameter] public MainLayout Layout { get; set; }
 
         private void SetPageTitle()
         {
-            Layout.PageTitle = PageTitle.Login;
+            Layout.PageTitle = PageTitle.Register;
         }
         #endregion
 
         #region Password Visibility
         private bool PasswordVisibility { get; set; }
-
         private InputType PasswordInput { get; set; } = InputType.Password;
-
         private string PasswordInputIcon { get; set; } = Icons.Material.Filled.VisibilityOff;
 
         private void TogglePasswordVisibility()
         {
-            if (PasswordVisibility)
-            {
-                PasswordVisibility = false;
-                PasswordInputIcon = Icons.Material.Filled.VisibilityOff;
-                PasswordInput = InputType.Password;
-            }
-            else
-            {
-                PasswordVisibility = true;
-                PasswordInputIcon = Icons.Material.Filled.Visibility;
-                PasswordInput = InputType.Text;
-            }
+            PasswordVisibility = !PasswordVisibility;
+            PasswordInputIcon = PasswordVisibility ? Icons.Material.Filled.Visibility : Icons.Material.Filled.VisibilityOff;
+            PasswordInput = PasswordVisibility ? InputType.Text : InputType.Password;
         }
         #endregion
 
         #region Form Submission
-        private LoginDto LoginDto { get; set; } = new();
-
+        private UserRegisterDto RegisterDto { get; set; } = new();
         private bool BusySubmitting { get; set; }
 
-        private async Task LoginHandler()
+        private async Task RegisterHandler()
         {
             BusySubmitting = true;
 
             try
             {
-                var result = await AuthenticationService.Login(LoginDto);
+                var result = await AuthenticationService.UserRegister(RegisterDto);
 
                 if (result?.Result is null)
                 {
@@ -71,13 +57,12 @@ namespace SMS.Pages.State.Authentication
                 switch (result.StatusCode)
                 {
                     case StatusCode.Status200Ok:
-                        await AuthenticationService.SetUpAccessToken(result.Result.Token);
                         SnackbarService.ShowSnackbar(result.Message, Severity.Success, Variant.Outlined);
-                        NavigationManager.NavigateTo(await AuthenticationService.GetReturnUrl() ?? "/home");
+                        NavigationManager.NavigateTo(await AuthenticationService.GetReturnUrl() ?? "/login");
                         break;
-                    case StatusCode.Status404NotFound:
                     case StatusCode.Status400BadRequest:
                     case StatusCode.Status401Unauthorized:
+                    case StatusCode.Status404NotFound:
                         SnackbarService.ShowSnackbar(result.Message, Severity.Warning, Variant.Outlined);
                         break;
                     case StatusCode.Status500InternalServerError:
@@ -91,15 +76,6 @@ namespace SMS.Pages.State.Authentication
             }
 
             BusySubmitting = false;
-        }
-        #endregion
-
-        #region Auto Logout
-        private async Task LogoutHandler()
-        {
-            await AuthenticationService.LogOut();
-
-
         }
         #endregion
     }

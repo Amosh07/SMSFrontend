@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using MudBlazor.Services;
 using SMS;
 using SMS.Dependency;
 
@@ -13,8 +12,6 @@ rootComponent.Add<App>("#app");
 rootComponent.Add<HeadOutlet>("head::after");
 
 var services = builder.Services;
-
-builder.Services.AddMudServices();
 
 services.AddInfrastructureService(builder);
 

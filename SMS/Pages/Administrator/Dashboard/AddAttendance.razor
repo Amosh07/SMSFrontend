@@ -50,7 +50,7 @@ else
 
     if (IsCreateModalOpen)
     {
-        <ModalLayout T="@InsertAttendanceDto"
+      @*   <ModalLayout T="@InsertAttendanceDto"
                      Module="AddAttendance"
                      Title="Create Attendance"
                      Description="Register an Attendance by filling up the form below."
@@ -62,10 +62,10 @@ else
             <div class="d-flex flex-column gap-4">
                 <div class="row gap-y-5">
                     <div class="col-xl-3 col-md-6 col-12">
-                        <MudDatePicker Label="Date" @bind-Date="InsertAttendanceDto.Date" Required="true" />
+                        <MudDatePicker Label="Date" @bind-Date="InsertAttendanceDto.Date"/>
                     </div>
-                    <div class="col-xl-3 col-md-6 col-12">
-                        @* <MudSelect T="Guid" Label="Select Student" @bind-Value="InsertAttendanceDto.StudentId" Required="true">
+                      <div class="col-xl-3 col-md-6 col-12">
+                        <MudSelect T="Guid" Label="Select Student" @bind-Value="InsertAttendanceDto.StudentId" Required="true">
                             @foreach (var student in AllStudents)
                             {
                                 <MudSelectItem Value="student.Id">@student.FullName</MudSelectItem>
@@ -86,10 +86,10 @@ else
                             {
                                 <MudSelectItem Value="cls.Id">@cls.ClassName</MudSelectItem>
                             }
-                        </MudSelect> *@
+                        </MudSelect>
                     </div>
                 </div>
             </div>
-        </ModalLayout>
+        </ModalLayout> *@
     }
 }

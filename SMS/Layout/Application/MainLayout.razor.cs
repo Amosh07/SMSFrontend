@@ -62,21 +62,11 @@ namespace SMS.Layout.Application
             {
                 var returnUrl = NavigationManager.Uri;
 
-                if (returnUrl.Contains("subordinate-answer-upload-form")) return;
-
                 if (!returnUrl.Contains("login") && !returnUrl.Contains("register")) await AuthenticationService.SetUpReturnUrl(returnUrl);
 
                 NavigationManager.NavigateTo("/login");
             }
-        }
-
-        // private async Task ThemePreferenceChanged(ClientPreference? themePreference)
-        // {
-        //     SetCurrentTheme(themePreference ?? new ClientPreference());
-        //     
-        //     await ClientPreferenceManager.SetPreference(themePreference ?? new ClientPreference());
-        // }
-
+        } 
         private void SetCurrentTheme(ClientPreference clientPreference)
         {
             Theme.Typography = CustomTypography.CmsTypography(clientPreference.Font);

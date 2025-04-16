@@ -5,5 +5,7 @@ namespace SMS.Service.Manager
     public interface IFileManager : ITransientService
     {
         Task<string> RenderSvgContent(string path, string fileName);
+
+        string FetchFileUrl(string imageUrl, string path);
     }
 }
