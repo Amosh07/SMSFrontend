@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Components;
 using MudBlazor;
 using SMS.Models.Base;
 using SMS.Models.LightTheme;
@@ -6,7 +7,7 @@ using SMS.Models.Responses.Menu;
 
 namespace SMS.Layout.Application
 {
-    public partial class MainLayout
+    public partial class MainLayout 
     {
         public string PageTitle { get; set; } = "School Management";
 
@@ -21,8 +22,6 @@ namespace SMS.Layout.Application
         private List<RoleMenuResponseDto> AssignedMenus { get; set; } = [];
 
         private static bool RightToLeft => false;
-
-        // private static bool OpenThemeDrawer { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -62,21 +61,11 @@ namespace SMS.Layout.Application
             {
                 var returnUrl = NavigationManager.Uri;
 
-                if (returnUrl.Contains("subordinate-answer-upload-form")) return;
-
                 if (!returnUrl.Contains("login") && !returnUrl.Contains("register")) await AuthenticationService.SetUpReturnUrl(returnUrl);
 
                 NavigationManager.NavigateTo("/login");
             }
-        }
-
-        // private async Task ThemePreferenceChanged(ClientPreference? themePreference)
-        // {
-        //     SetCurrentTheme(themePreference ?? new ClientPreference());
-        //     
-        //     await ClientPreferenceManager.SetPreference(themePreference ?? new ClientPreference());
-        // }
-
+        } 
         private void SetCurrentTheme(ClientPreference clientPreference)
         {
             Theme.Typography = CustomTypography.CmsTypography(clientPreference.Font);
