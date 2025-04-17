@@ -8,13 +8,13 @@ namespace SMS.Pages.State
 {
     public partial class Login : ComponentBase
     {
-        protected override void OnParametersSet()
+        protected override void OnInitialized()
         {
             SetPageTitle();
         }
 
         #region Page Title
-        [CascadingParameter] public MainLayout Layout { get; set; } = new MainLayout();
+        [CascadingParameter] public MainLayout Layout { get; set; } = new();
 
         private void SetPageTitle()
         {
@@ -48,7 +48,7 @@ namespace SMS.Pages.State
         #endregion
 
         #region Form Submission
-        private LoginDto LoginDto { get; set; } = new();
+        private LoginDto loginDto{ get; set; } = new();
 
         private bool BusySubmitting { get; set; }
 
@@ -58,7 +58,7 @@ namespace SMS.Pages.State
 
             try
             {
-                var result = await AuthenticationService.Login(LoginDto);
+                var result = await AuthenticationService.Login(loginDto);
 
                 if (result?.Result is null)
                 {

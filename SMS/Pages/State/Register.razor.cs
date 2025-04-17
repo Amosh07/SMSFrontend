@@ -14,7 +14,7 @@ namespace SMS.Pages.State
         }
 
         #region Page Title
-        [CascadingParameter] public MainLayout Layout { get; set; }
+        [CascadingParameter] public MainLayout Layout { get; set; } = new();
 
         private void SetPageTitle()
         {

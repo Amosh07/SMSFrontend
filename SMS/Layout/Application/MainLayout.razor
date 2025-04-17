@@ -18,9 +18,6 @@
         else
         {
             <MudLayout>
-                @* TODO: Add Client Preference Layout and Theme Selection *@
-                @* <ThemeDrawer @bind-ThemeDrawerOpen="OpenThemeDrawer" ThemePreference="ClientPreference" ThemePreferenceChanged="ThemePreferenceChanged" /> *@
-                @* <ThemeButton OnClick="@(() => OpenThemeDrawer = true)" /> *@
                 <MudAppBar Class="topbar bg-white" Elevation="0">
                     <div class="d-flex align-items-center justify-content-start">
                         <MudTooltip Text="Toggle Drawer" Color="Color.Primary">
@@ -33,8 +30,6 @@
                     </div>
 
                     <div class="d-flex align-items-center gap-x-4">
-                        @* TODO: Add notification bell icon and respective notifications. *@
-                        @* <MudImage Src="images/icons/notification.svg" Alt="Bell Icon" Height="20" Width="20" /> *@
                         <MudMenu AnchorOrigin="Origin.BottomRight" LockScroll="true" TransformOrigin="Origin.TopRight">
                             <ActivatorContent>
                                 <Avatar Height="36"
