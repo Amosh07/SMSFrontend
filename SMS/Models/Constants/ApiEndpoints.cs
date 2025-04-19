@@ -57,5 +57,20 @@ namespace SMS.Models.Constants
             public const string AddAttendance = "InsertAttendance";
             public const string GetAllAttendanceDetails = "GetAll";
         }
+
+        public abstract class Student
+        {
+            public const string GetAllStudentById = "Dashboad/Student/StudentDashboard-count";
+        }
+
+        public abstract class Teacher
+        {
+            public const string GetAllTeacherById = "Dashboad/Teacher/TeacherDashboard-count";
+        }
+
+        public abstract class User
+        {
+            public const string GetUserProfileById = "Dashboad/User/TeacherDashboard-count";
+        }
     }
 }

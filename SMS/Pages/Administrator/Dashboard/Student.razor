@@ -1,0 +1,95 @@
+﻿@* @page "/home/Student"
+
+<PageTitle>@Layout.PageTitle</PageTitle>
+
+<div class="dashboard student-dashboard">
+    <div class="dashboard-header d-flex align-items-center justify-content-between flex-wrap mb-6">
+        <div class="dashboard-header-text col-10">
+            <MudText Typo="Typo.h6" Class="fw-bold text-dark">
+                Namaste @StudentDetails.Name 🙏 -
+                <MudText Typo="Typo.subtitle2" HtmlTag="span" Class="text-normal">here's your learning dashboard</MudText>
+            </MudText>
+        </div>
+        <div class="col-2">
+            <TimePeriodFilter Value="TimePeriod" ValueChanged="OnStatusFilter" />
+        </div>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <MudGrid Class="mb-6" Spacing="6">
+            <MudItem xs="12" lg="12" xl="12">
+                <div class="data-card-wrapper mb-6">
+                    <div class="grid row gap-y-4">
+                        <div class="item col-xxl-3 col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <MudText Typo="Typo.subtitle1" Class="mb-4 card-title text-normal">
+                                    Enrolled Courses
+                                </MudText>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <MudText Typo="Typo.h2" Class="card-data">
+                                        @(GetAllStudentById.EnrolledCourses)
+                                    </MudText>
+                                    <MudText Typo="Typo.body1" Color="Color.Success" Class="rate d-flex align-items-center gap-3">
+                                        <MudImage Src="images/icons/graph-up.svg" Height="24" Width="24" Alt="Graph Arrow Up" />
+                                        @(GetAllStudentById.EnrolledCoursesGrowth) %
+                                    </MudText>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-xxl-3 col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <MudText Typo="Typo.subtitle1" Class="mb-4 card-title text-normal">
+                                    Completed Courses
+                                </MudText>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <MudText Typo="Typo.h2" Class="card-data">
+                                        @(GetAllStudentById.CompletedCourses)
+                                    </MudText>
+                                    <MudText Typo="Typo.body1" Color="Color.Error" Class="rate d-flex align-items-center gap-3">
+                                        <MudImage Src="images/icons/graph-down.svg" Height="24" Width="24" Alt="Graph Arrow Down" />
+                                        @(GetAllStudentById.CompletedCoursesGrowth) %
+                                    </MudText>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-xxl-3 col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <MudText Typo="Typo.subtitle1" Class="mb-4 card-title text-normal">
+                                    Ongoing Courses
+                                </MudText>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <MudText Typo="Typo.h2" Class="card-data">
+                                        @(GetAllStudentById.OngoingCourses)
+                                    </MudText>
+                                    <MudText Typo="Typo.body1" Color="Color.Success" Class="rate d-flex align-items-center gap-3">
+                                        <MudImage Src="images/icons/graph-up.svg" Height="24" Width="24" Alt="Graph Arrow Up" />
+                                        @(GetAllStudentById.OngoingCoursesGrowth) %
+                                    </MudText>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item col-xxl-3 col-lg-3 col-md-6 col-12">
+                            <div class="card">
+                                <MudText Typo="Typo.subtitle1" Class="mb-4 card-title text-normal">
+                                    Certificates Earned
+                                </MudText>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <MudText Typo="Typo.h2" Class="card-data">
+                                        @(GetAllStudentById.CertificatesEarned)
+                                    </MudText>
+                                    <MudText Typo="Typo.body1" Color="Color.Success" Class="rate d-flex align-items-center gap-3">
+                                        <MudImage Src="images/icons/graph-up.svg" Height="24" Width="24" Alt="Graph Arrow Up" />
+                                        @(GetAllStudentById.CertificatesGrowth) %
+                                    </MudText>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </MudItem>
+        </MudGrid>
+    </div>
+</div>
+
+
+ *@
